@@ -10,15 +10,23 @@
                     <li class="nav-item">
                         <a class="nav-link " aria-current="page" href="index.php" style="color: white; font-size:bold;">Home</a>
                     </li>
-                    
+
                     <li class="nav-item dropdown">
                         <a class="nav-link  dropdown-toggle " style="color: white; font-size:bold;" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Categories
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="color: white; font-size:bold;">
-                            <li><a class="dropdown-item " href="search.php?cat=medicine">Medicine</a></li>
-                            <li><a class="dropdown-item" href="search.php?cat=self-care">Self Care</a></li>
-                            <li><a class="dropdown-item" href="search.php?cat=machine"> machines</a></li>
+                            <?php
+                            $data = get_category();
+                            $num = sizeof($data);
+                            for ($i = 0; $i < $num; $i++) {
+                                // replace space with - in category name
+                                $data[$i]['name'] = str_replace(' ', '-', $data[$i]['name']);
+                            ?>
+                                <li><a class="dropdown-item " href="search.php?cat=<?php echo strtolower($data[$i]['name']); ?>"><?php echo $data[$i]['name'] ?></a></li>
+                            <?php
+                            }
+                            ?>
                         </ul>
                     </li>
                     <li class="nav-item">

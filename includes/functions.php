@@ -1,5 +1,5 @@
 <?php
-$connection = mysqli_connect("localhost", "root", "", "PharmEasy");
+$connection = mysqli_connect("localhost", "root", "", "anamul_pharmeasy");
 // $connection = mysqli_connect("localhost", "id18666014_md_taha_ahmed", "bGCL0+&4qT64IM_{", "id18666014_pharmeasy");
     function post_redirect($url)
 {
@@ -157,14 +157,14 @@ function search()
         return $data;
     } elseif (isset($_GET['cat'])) {
         $cat = $_GET['cat'];
-        $query = "SELECT * FROM item WHERE item_cat='$cat' ORDER BY RAND()";
+        $query = "SELECT * FROM item WHERE item_cat='$cat'";
         $data = query($query);
         return $data;
     }
 }
 function all_products()
 {
-    $query = "SELECT * FROM item ORDER BY RAND()";
+    $query = "SELECT * FROM item";
     $data = query($query);
     return $data;
 }
@@ -311,6 +311,12 @@ function check_user($id)
 function get_item_id($id)
 {
     $query = "SELECT * FROM item WHERE item_id= '$id'";
+    $data = query($query);
+    return $data;
+}
+function get_category()
+{
+    $query = "SELECT * FROM category";
     $data = query($query);
     return $data;
 }

@@ -1,5 +1,5 @@
 <?php
-$connection = mysqli_connect("localhost", "root", "", "PharmEasy");
+$connection = mysqli_connect("localhost", "root", "", "anamul_pharmeasy");
 function query($query)
 {
     global $connection;
@@ -27,7 +27,7 @@ function post_redirect($url)
 {
     ob_start();
     header('Location: ' . $url);
-    
+
     ob_end_flush();
     die();
 }
@@ -299,6 +299,17 @@ function add_item()
         get_redirect("products.php");
     }
 }
+function add_cat()
+{
+    if (isset($_POST['add_cat'])) {
+        $cat = $_POST['name'];
+        $query = "INSERT INTO category (name) VALUES ('$cat')";
+        $run = single_query($query);
+        get_redirect("categorys.php");
+    } elseif (isset($_POST['cancel'])) {
+        get_redirect("categorys.php");
+    }
+}
 function get_item_details()
 {
     if ($_GET['id']) {
@@ -454,3 +465,10 @@ function delete_order()
     }
 }
 // order functions (end)
+
+function get_category()
+{
+    $query = "SELECT * FROM category";
+    $data = query($query);
+    return $data;
+}

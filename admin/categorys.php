@@ -100,67 +100,20 @@ include "includes/head.php";
         }
         ?>
         <?php
-        add_item();
+        add_cat();
         if (isset($_GET['add'])) {
         ?>
             <br>
-            <h2>Add Product</h2>
-            <form action="products.php" method="POST">
+            <h2>Add Category</h2>
+            <form action="categorys.php" method="POST">
                 <div class=" form-group mb-3">
-                    <label>Product name</label>
-                    <input id="exampleInputText1" type="text" class="form-control" placeholder="product name" name="name">
-                    <div class="form-text">please enter the product name in range(1-25) character/s , special character not allowed !</div>
+                    <label>Name</label>
+                    <input id="exampleInputText1" type="text" class="form-control" placeholder="name" name="name">
+                    <div class="form-text">please enter the name in range(1-25) character/s , special character not allowed !</div>
                 </div>
-                <div class="form-group">
-                    <label>Brand name</label>
-                    <input id="validationTooltip01" type="text" class="form-control" placeholder="product brand" name="brand">
-                    <div class="form-text">please enter the brand name in range(1-25) character/s , special character not allowed !</div>
-                </div>
-                <div class="input-group mb-3 form-group">
-                    <label class="input-group-text" for="inputGroupSelect01">category</label>
-                    <select name="cat" class="form-select" id="inputGroupSelect01">
-                        <option value="" selected>Choose...</option>
-                        <?php
-                        $data = get_category();
-                        $num = sizeof($data);
-                        for ($i = 0; $i < $num; $i++) {
-                            // replace space with - in category name
-                            $data[$i]['name'] = str_replace(' ', '-', $data[$i]['name']);
-                        ?>
-                            <option value="<?php echo strtolower($data[$i]['name']) ?>"><?php echo $data[$i]['name'] ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Product tags</label>
-                    <input id="validationTooltip01" type="text" class="form-control" placeholder="product tags" name="tags">
-                    <div class="form-text">please enter tags for the product in range(1-250) character/s , special character not allowed !</div>
-                </div>
-                <div class="form-group">
-                    <label>Product image</label>
-                    <input type="file" accept="image/*" class="form-control" placeholder="image" name="image">
-                    <div class="form-text">please enter image for the product .</div>
-                </div>
-                <div class="form-group">
-                    <label>Product quantity</label>
-                    <input type="number" class="form-control" placeholder="product quantity" name="quantity" min="1" max="999">
-                    <div class="form-text">please enter the quantity of the product in range(1-999) .</div>
-                </div>
-                <div class="input-group mb-3 form-group">
-                    <span class="input-group-text">₹</span>
-                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" name="price" placeholder="product price">
-                    <span class="input-group-text">.00</span>
-                </div>
-                <div class="form-text">please enter the price of the product .</div>
-                <div class="form-group">
-                    <label for="inputAddress2">Product details</label>
-                    <input type="text" class="form-control" placeholder="product details" name="details">
-                </div>
-                <div class="form-text">please enter the product details .</div>
+                
                 <br>
-                <button type="submit" class="btn btn-outline-primary" value="update" name="add_item">Submit</button>
+                <button type="submit" class="btn btn-outline-primary" value="update" name="add_cat">Submit</button>
                 <button type=" submit" class="btn btn-outline-danger" value="cancel" name="cancel">Cancel</button>
                 <br> <br>
             </form>
