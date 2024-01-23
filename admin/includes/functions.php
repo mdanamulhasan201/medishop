@@ -1,5 +1,5 @@
 <?php
-$connection = mysqli_connect("localhost", "root", "", "anamul_pharmeasy");
+$connection = mysqli_connect("localhost", "root", "", "pharmeasy");
 function query($query)
 {
     global $connection;

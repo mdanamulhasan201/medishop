@@ -1,5 +1,5 @@
 <?php
-$connection = mysqli_connect("localhost", "root", "", "anamul_pharmeasy");
+$connection = mysqli_connect("localhost", "root", "", "pharmeasy");
 // $connection = mysqli_connect("localhost", "id18666014_md_taha_ahmed", "bGCL0+&4qT64IM_{", "id18666014_pharmeasy");
 function post_redirect($url)
 {

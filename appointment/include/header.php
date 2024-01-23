@@ -31,7 +31,7 @@
 					<img src="assets/images/images.jpg"> <span class="username">
 
 						<?php
-						$connection = mysqli_connect("localhost", "root", "", "anamul_pharmeasy");
+						$connection = mysqli_connect("localhost", "root", "", "pharmeasy");
 
 						$query = "SELECT user_Lname FROM user where user_id='" . $_SESSION['user_id'] . "'";
 						$run = mysqli_query($connection, $query);
