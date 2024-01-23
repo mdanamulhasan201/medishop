@@ -401,7 +401,7 @@ function search_admin()
 }
 function check_admin($id)
 {
-    $query = "SELECT admin_id FROM admin where admin_id='$id'";
+    $query = "SELECT subadmin_id FROM subadmin where subadmin_id='$id'";
     $row = query($query);
     if (empty($row)) {
         return 0;
@@ -454,3 +454,9 @@ function delete_order()
     }
 }
 // order functions (end)
+function get_category()
+{
+    $query = "SELECT * FROM category";
+    $data = query($query);
+    return $data;
+}

@@ -1,7 +1,7 @@
 <?php
 $connection = mysqli_connect("localhost", "root", "", "anamul_pharmeasy");
 // $connection = mysqli_connect("localhost", "id18666014_md_taha_ahmed", "bGCL0+&4qT64IM_{", "id18666014_pharmeasy");
-    function post_redirect($url)
+function post_redirect($url)
 {
     ob_start();
     header('Location: ' . $url);
@@ -54,13 +54,15 @@ function login()
             $_SESSION['message'] = "empty_err";
             post_redirect("login.php");
         }
-        $query = "SELECT  email , user_id , user_password FROM user WHERE email= '$userEmail' ";
+        $query = "SELECT  user_Lname , email , user_id , user_password FROM user WHERE email= '$userEmail' ";
         $data = query($query);
         if (empty($data)) {
             $_SESSION['message'] = "loginErr";
             post_redirect("login.php");
         } elseif ($password == $data[0]['user_password'] and  $userEmail == $data[0]['email']) {
             $_SESSION['user_id'] = $data[0]['user_id'];
+            $_SESSION['login'] = $data[0]['user_Lname'];
+            $_SESSION['id'] = $data[0]['id'];
             post_redirect("index.php");
         } else {
             $_SESSION['message'] = "loginErr";

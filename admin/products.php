@@ -59,10 +59,18 @@ include "includes/head.php";
                 <div class="input-group mb-3 form-group">
                     <label class="input-group-text" for="inputGroupSelect01">category</label>
                     <select name="cat" class="form-select" id="inputGroupSelect01">
-                        <option selected>Choose...</option>
-                        <option value="medicine">medicine</option>
-                        <option value="self-care">self-care</option>
-                        <option value="machine">machine</option>
+                        <option value="" selected>Choose...</option>
+                        <?php
+                        $data = get_category();
+                        $num = sizeof($data);
+                        for ($i = 0; $i < $num; $i++) {
+                            // replace space with - in category name
+                            $data[$i]['name'] = str_replace(' ', '-', $data[$i]['name']);
+                        ?>
+                            <option value="<?php echo strtolower($data[$i]['name']) ?>"><?php echo $data[$i]['name'] ?></option>
+                        <?php
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class="form-group">
