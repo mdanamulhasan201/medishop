@@ -2,11 +2,6 @@
 session_start();
 include('includes/functions.php');
 
-$servername = "localhost";
-$dbusername = "root";
-$dbpassword = "";
-$dbname = "PharmEasy";
-
 // Check if the user is already logged in, redirect to home if true
 if (isset($_SESSION['subadmin_id'])) {
     header("Location: index.php");
@@ -15,33 +10,25 @@ if (isset($_SESSION['subadmin_id'])) {
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user_email = $_POST['subadmin_email'];
-    $password = $_POST['password'];
 
-    // Establish a connection to your database
-    $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
-
-    // Check the connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Perform login validation, replace this with your actual validation logic
-    if (login($conn, $user_email, $password)) {
-        // Redirect to home page after successful login
-        header("Location: index.php");
-        exit();
+    $adminEmail = trim($_POST['subadmin_email']);
+    $password = trim(strtolower($_POST['password']));
+    $query = "SELECT  subadmin_email, subadmin_id,  password FROM subadmin WHERE subadmin_email= '$adminEmail' ";
+    $data = query($query);
+    if ($data == 0) {
+        $error_message = "Invalid email or password. Please try again.";
+    } elseif ($password == $data[0]['password'] and  $adminEmail == $data[0]['subadmin_email']) {
+        $_SESSION['subadmin_id'] = $data[0]['subadmin_id'];
+        post_redirect("index.php");
     } else {
         $error_message = "Invalid email or password. Please try again.";
     }
-
-    // Close the database connection
-    $conn->close();
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Include Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container mt-5">
         <h2 class="mb-4">Login</h2>
@@ -59,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         ?>
 
-        <form action="login.php" method="post" >
+        <form action="login.php" method="post">
             <div class="mb-3">
                 <label for="subadmin_email" class="form-label">Email:</label>
                 <input type="email" class="form-control" name="subadmin_email" required>
@@ -79,4 +67,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Include Bootstrap JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

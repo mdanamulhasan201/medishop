@@ -1,8 +1,8 @@
 <?php
 session_start();
 include "includes/functions.php";
-if (isset($_SESSION['admin_id'])) {
-    $check_admin = check_admin($_SESSION['admin_id']);
+if (isset($_SESSION['subadmin_id'])) {
+    $check_admin = check_admin($_SESSION['subadmin_id']);
     if ($check_admin == 0) {
         post_redirect("logout.php");
     }

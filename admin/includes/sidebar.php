@@ -14,6 +14,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="categorys.php">
+                    <span data-feather="package"></span>
+                    Categorys
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="products.php">
                     <span data-feather="package"></span>
                     Products

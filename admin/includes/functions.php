@@ -1,5 +1,5 @@
 <?php
-$connection = mysqli_connect("localhost", "root", "", "PharmEasy");
+$connection = mysqli_connect("localhost", "root", "", "anamul_pharmeasy");
 function query($query)
 {
     global $connection;
@@ -27,7 +27,7 @@ function post_redirect($url)
 {
     ob_start();
     header('Location: ' . $url);
-    
+
     ob_end_flush();
     die();
 }
@@ -200,6 +200,12 @@ function all_items()
     $data = query($query);
     return $data;
 }
+function all_ctg()
+{
+    $query = "SELECT * FROM category";
+    $data = query($query);
+    return $data;
+}
 function delete_item()
 {
     if (isset($_GET['delete'])) {
@@ -207,6 +213,15 @@ function delete_item()
         $query = "DELETE FROM item WHERE item_id ='$itemID'";
         $run = single_query($query);
         get_redirect("products.php");
+    }
+}
+function delete_ctg()
+{
+    if (isset($_GET['delete'])) {
+        $itemID = $_GET['delete'];
+        $query = "DELETE FROM category WHERE id ='$itemID'";
+        $run = single_query($query);
+        get_redirect("categorys.php");
     }
 }
 function edit_item($id)
@@ -235,9 +250,32 @@ function edit_item($id)
         get_redirect("products.php");
     }
 }
+function edit_ctg($id)
+{
+    if (isset($_POST['update'])) {
+        $name = trim($_POST['name']);
+        $check = check_ctg($name);
+        if ($check == 0) {
+            $query = "UPDATE `category` SET `name`='$name' WHERE id= '$id'";
+            $run = single_query($query);
+            get_redirect("categorys.php");
+        } else {
+            $_SESSION['message'] = "itemErr";
+            get_redirect("categorys.php");
+        }
+    } elseif (isset($_POST['cancel'])) {
+        get_redirect("categorys.php");
+    }
+}
 function get_item($id)
 {
     $query = "SELECT * FROM item WHERE item_id=$id";
+    $data = query($query);
+    return $data;
+}
+function get_ctg($id)
+{
+    $query = "SELECT * FROM category WHERE id=$id";
     $data = query($query);
     return $data;
 }
@@ -251,11 +289,35 @@ function check_name($name)
         return 0;
     }
 }
+function check_ctg($name)
+{
+    $query = "SELECT id FROM `category` WHERE `name`='$name'";
+    $data = query($query);
+    if ($data) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
 function search_item()
 {
     if (isset($_GET['search_item'])) {
         $name = trim($_GET['search_item_name']);
         $query = "SELECT * FROM item WHERE item_title LIKE '%$name%'";
+        $data = query($query);
+        if ($data) {
+            return $data;
+        } else {
+            $_SESSION['message'] = "noResultItem";
+            return;
+        }
+    }
+}
+function search_ctg()
+{
+    if (isset($_GET['search_item'])) {
+        $name = trim($_GET['search_item_name']);
+        $query = "SELECT * FROM category WHERE name LIKE '%$name%'";
         $data = query($query);
         if ($data) {
             return $data;
@@ -299,11 +361,31 @@ function add_item()
         get_redirect("products.php");
     }
 }
+function add_cat()
+{
+    if (isset($_POST['add_cat'])) {
+        $cat = $_POST['name'];
+        $query = "INSERT INTO category (name) VALUES ('$cat')";
+        $run = single_query($query);
+        get_redirect("categorys.php");
+    } elseif (isset($_POST['cancel'])) {
+        get_redirect("categorys.php");
+    }
+}
 function get_item_details()
 {
     if ($_GET['id']) {
         $id = $_GET['id'];
         $query = "SELECT * FROM item WHERE item_id=$id";
+        $data = query($query);
+        return $data;
+    }
+}
+function get_ctg_details()
+{
+    if ($_GET['id']) {
+        $id = $_GET['id'];
+        $query = "SELECT * FROM categorys WHERE id=$id";
         $data = query($query);
         return $data;
     }
@@ -454,3 +536,10 @@ function delete_order()
     }
 }
 // order functions (end)
+
+function get_category()
+{
+    $query = "SELECT * FROM category";
+    $data = query($query);
+    return $data;
+}
