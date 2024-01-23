@@ -88,7 +88,7 @@ function message()
 }
 // messages function (end)
 // login function (start)
-function login()
+function login($path)
 {
     if (isset($_POST['login'])) {
 
@@ -101,7 +101,7 @@ function login()
             post_redirect("login.php");
         } elseif ($password == $data[0]['admin_password'] and  $adminEmail == $data[0]['admin_email']) {
             $_SESSION['admin_id'] = $data[0]['admin_id'];
-            post_redirect("index.php");
+            post_redirect($path);
         } else {
             $_SESSION['message'] = "loginErr1";
             post_redirect("login.php");

@@ -6,7 +6,6 @@ if (isset($_POST['submit'])) {
 	$uname = $_POST['username'];
 	$dpassword = md5($_POST['password']);
 	$query = "SELECT * FROM `doctors` WHERE `docEmail`='$uname' and `password`='$dpassword'";
-	echo $query;
 	$ret = mysqli_query($con, $query);
 	
 	$num = mysqli_fetch_array($ret);
@@ -90,6 +89,9 @@ if (isset($_POST['submit'])) {
 
 
 					</fieldset>
+					<a href="signup.php">
+						Sign Up as a Doctor
+					</a>
 				</form>
 
 				<div class="copyright">
